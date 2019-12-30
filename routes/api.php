@@ -28,4 +28,5 @@ Route::namespace('APIs')->group(function () {
         // });
 
         Route::get('moderators',"RepresentativeController@index");
+        Route::resource('products', 'ProductController');
 });

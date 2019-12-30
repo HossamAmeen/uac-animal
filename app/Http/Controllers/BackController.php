@@ -130,8 +130,24 @@ class BackController extends Controller
 
         $file->move($destinationPath, $name);
 
-//        return substr($destinationPath, 34) . '/' . $name;
+
         return $this->pluralModelName()  .'/'. $name ;
+    }
+
+    protected function uploadImage($request , $height = 400 , $width = 400){
+       
+        $photo = $request->file('image');
+        $fileName = time().str_random('10').'.'.$photo->getClientOriginalExtension();
+        $destinationPath = public_path('uploads/'.$this->getClassNameFromModel().'/');
+        $image = Image::make($photo->getRealPath())->resize($height, $width);
+
+            // return $destinationPath;
+           
+         if(!is_dir($destinationPath) ){
+             mkdir($destinationPath);
+         }
+        $image->save($destinationPath.$fileName,60);
+        return $destinationPath.$fileName;
     }
 
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\APIs;
 
 use Illuminate\Http\Request;
-use App\Moderator;
+use App\Models\Moderator;
 use App\Http\Controllers\BackController;
 use App\Http\Controllers\Controller;
 

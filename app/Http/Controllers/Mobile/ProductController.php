@@ -9,8 +9,21 @@ use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
-    public function show_products($employee_id)
+   
+    public function add_product(Request $request)
     {
-        $products = EmployeeProduct::where('employee_id',$employee_id)->get();
+        $producd = new EmployeeProduct();
+        $producd->date = $request->date;
+        $producd->count = $request->count;
+        $producd->product_id = $request->product_id;
+        $producd->employee_id  = $request->employee_id ;
+        $producd->save();
+        $array = [
+            'data' => null ,
+            'status' =>  "success"  ,
+            'error' => null,
+        ];
+
+        return response($array , 200);
     }
 }

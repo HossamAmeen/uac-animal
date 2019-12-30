@@ -33,8 +33,9 @@ Route::namespace('APIs')->group(function () {
 Route::namespace('Dashboard')->group(function () {     
     Route::get('moderators',"RepresentativeController@index");
     Route::resource('products', 'ProductController');    
-    Route::get('products/employee',"ProductController@show_products");   
+    Route::resource('employees', 'EmployeeController');
+    Route::get('product/employee/{emp_id}',"ProductController@show_products");   
 });
 Route::namespace('Mobile')->group(function () {   
-   
+    Route::post('add/product', 'ProductController@add_product');    
      });

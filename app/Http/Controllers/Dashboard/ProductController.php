@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
+use App\Models\EmployeeProduct;
 use App\Models\Product;
 use App\Http\Controllers\BackController;
 use App\Http\Controllers\Controller;
@@ -31,5 +32,6 @@ class ProductController extends BackController
     public function show_products($employee_id)
     {
         $products = EmployeeProduct::where('employee_id',$employee_id)->get();
+        return $this->APIResponse($products, null, 200);
     }
 }

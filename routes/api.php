@@ -26,7 +26,15 @@ Route::namespace('APIs')->group(function () {
         //     Route::get('logout', 'AuthController@logout');
         //     Route::get('getuser', 'AuthController@getUser');
         // });
-
-        Route::get('moderators',"RepresentativeController@index");
-        Route::resource('products', 'ProductController');
+    
+   
+ 
 });
+Route::namespace('Dashboard')->group(function () {     
+    Route::get('moderators',"RepresentativeController@index");
+    Route::resource('products', 'ProductController');    
+    Route::get('products/employee',"ProductController@show_products");   
+});
+Route::namespace('Mobile')->group(function () {   
+   
+     });

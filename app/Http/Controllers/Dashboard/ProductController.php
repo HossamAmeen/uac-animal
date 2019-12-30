@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\APIS;
+namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -26,5 +26,10 @@ class ProductController extends BackController
         $product->save();
 
         return $this->APIResponse(null, null, 200);
+    }
+
+    public function show_products($employee_id)
+    {
+        $products = EmployeeProduct::where('employee_id',$employee_id)->get();
     }
 }

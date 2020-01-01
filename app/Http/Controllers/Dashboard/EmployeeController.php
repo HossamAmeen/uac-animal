@@ -28,4 +28,9 @@ class EmployeeController extends BackController
 
         return $this->APIResponse(null, null, 200);
     }
+
+    public function with()
+    {
+        return ['rate'];
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use Illuminate\Http\Request;
 use App\Models\EmployeeProduct;
 use App\Models\Product;
+use DB;
 use App\Http\Controllers\BackController;
 use App\Http\Controllers\Controller;
 
@@ -29,9 +30,33 @@ class ProductController extends BackController
         return $this->APIResponse(null, null, 200);
     }
 
-    public function show_products($employee_id)
+    public function show_products(Request $request ,$employee_id)
     {
-        $products = EmployeeProduct::where('employee_id',$employee_id)->get();
-        return $this->APIResponse($products, null, 200);
+        if(isset($request->dateFrom) ){
+           
+            $items = EmployeeProduct::orderBy('id','DESC')
+            ->where('employee_id' , $employee_id)
+            ->whereBetween('date' , [$request->dateFrom, $request->dateTo])
+           
+            ->select('id','employee_id',"product_id", DB::raw('DATE(date) as date'))
+            ->with('products')
+            ->get()
+            ->groupBy('date');
+        }
+        else
+        {
+            $items = EmployeeProduct::orderBy('id','DESC')
+            ->where('employee_id' , $employee_id)
+            ->select('id','employee_id',"product_id", DB::raw('DATE(date) as date'))
+            ->with('products')
+            ->get()
+            ->groupBy('date');
+        
+        }
+        return $this->APIResponse($items, null, 200);
+        
+      
     }
+
+    
 }

@@ -26,24 +26,25 @@ Route::namespace('APIs')->group(function () {
         //     Route::get('logout', 'AuthController@logout');
         //     Route::get('getuser', 'AuthController@getUser');
         // });
-    
-   
- 
+
+
+
 });
 
-Route::namespace('Dashboard')->group(function () {     
+Route::namespace('Dashboard')->group(function () {
     Route::get('moderators',"RepresentativeController@index");
 
-    Route::resource('products', 'ProductController');    
+    Route::resource('products', 'ProductController');
     Route::post("upload/image", 'ProductController@uploadImage');
+      Route::post("upload/image2", 'ProductController@uploadImage2');
     Route::resource('employees', 'EmployeeController');
     Route::post("road/maps", 'RoadMapController@store');
-    Route::get("road/maps/{emp_id}", 'RoadMapController@get_companies');
-    Route::get('product/employee/{emp_id}',"ProductController@show_products");  
+    Route::get("road/maps/{emp_id}", 'RoadMapController@get_companies_test');
+    Route::get('product/employee/{emp_id}',"ProductController@show_products");
     Route::resource("targets", 'EmployeeTargetController');
 });
-Route::namespace('Mobile')->group(function () {   
-    Route::post('add/product', 'ProductController@add_product'); 
-    Route::post('add/rate/employee', 'ProductController@add_rate_employee'); 
-       
+Route::namespace('Mobile')->group(function () {
+    Route::post('add/product', 'ProductController@add_product');
+    Route::post('add/rate/employee', 'ProductController@add_rate_employee');
+    // Route::get("road-maps/{emp_id}", 'RoadMapController@get_companies');
      });

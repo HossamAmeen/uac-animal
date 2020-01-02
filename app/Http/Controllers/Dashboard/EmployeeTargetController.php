@@ -21,10 +21,10 @@ class EmployeeTargetController extends Controller
 
     public function store(Request $request)
     {
-       
+
         $item = new EmployeeTarget();
-        $item->target = $request->target ; 
-        $item->date = $request->date ; 
+        $item->target = $request->target ;
+        $item->date = $request->date ;
         $item->employee_id  = $request->employee_id ;
         $item->product_id = $request->product_id ;
         $item->save();
@@ -40,8 +40,8 @@ class EmployeeTargetController extends Controller
     public function update(Request $request , $id)
     {
         $item = EmployeeTarget::find($id);
-        $item->target = $request->target ; 
-        $item->date = $request->date ; 
+        $item->target = $request->target ;
+        $item->date = $request->date ;
         $item->employee_id  = $request->employee_id ;
         $item->product_id = $request->product_id ;
         $item->save();

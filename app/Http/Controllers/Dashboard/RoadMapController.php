@@ -4,6 +4,7 @@ namespace App\Http\Controllers\DashBoard;
 
 use Illuminate\Http\Request;
 use App\Models\RoadMap;
+use App\Models\Visit;
 use DB;
 use App\Http\Controllers\Controller;
 
@@ -31,13 +32,12 @@ class RoadMapController extends Controller
     public function get_companies(Request $request , $employee_id)
     {
         
-
+        // $visits = Visit::where()->get();
         if(isset($request->dateFrom) ){
             
             $items = RoadMap::orderBy('id','DESC')
             ->where('employee_id' , $employee_id)
             ->whereBetween('date' , [$request->dateFrom, $request->dateTo])
-           
             ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))
             ->with('companies')
             ->get()
@@ -55,6 +55,60 @@ class RoadMapController extends Controller
         }
         $array = [
             'data' => $items ,
+            'status' =>  "success"  ,
+            'error' => null,
+        ];
+
+        return response($array , 200);
+    }
+
+    public function get_companies_test(Request $request , $employee_id)
+    {
+        
+        $visits = Visit::where('employee_id' , $employee_id)->pluck('company_id');
+
+        // return $visits;
+        if(isset($request->dateFrom) ){
+            
+            $data['not'] = RoadMap::orderBy('id','DESC')
+            ->where('employee_id' , $employee_id)
+            ->whereNotIn('company_id' , $visits)
+            ->whereBetween('date' , [$request->dateFrom, $request->dateTo])
+            ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))
+            ->with('companies')
+            ->get()
+            ->groupBy('date');
+
+            $data['in'] = RoadMap::orderBy('id','DESC')
+            ->where('employee_id' , $employee_id)
+            ->whereIn('company_id' , $visits)
+            ->whereBetween('date' , [$request->dateFrom, $request->dateTo])
+            ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))
+            ->with('companies')
+            ->get()
+            ->groupBy('date');
+        }
+        else
+        {
+            $data['not'] = RoadMap::orderBy('id','DESC')
+            ->where('employee_id' , $employee_id)
+            ->whereNotIn('company_id' , $visits)
+            ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))
+            ->with('companies')
+            ->get()
+            ->groupBy('date');
+
+            $data['in'] = RoadMap::orderBy('id','DESC')
+            ->whereIn('company_id' , $visits)
+            ->where('employee_id' , $employee_id)
+            ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))
+            ->with('companies')
+            ->get()
+            ->groupBy('date');
+        
+        }
+        $array = [
+            'data' => $data ,
             'status' =>  "success"  ,
             'error' => null,
         ];

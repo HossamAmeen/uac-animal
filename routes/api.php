@@ -30,9 +30,12 @@ Route::namespace('APIs')->group(function () {
    
  
 });
+
 Route::namespace('Dashboard')->group(function () {     
     Route::get('moderators',"RepresentativeController@index");
+
     Route::resource('products', 'ProductController');    
+    Route::post("upload/image", 'ProductController@uploadImage');
     Route::resource('employees', 'EmployeeController');
     Route::post("road/maps", 'RoadMapController@store');
     Route::get("road/maps/{emp_id}", 'RoadMapController@get_companies');

@@ -8,7 +8,7 @@ use App\Models\Product;
 use DB;
 use App\Http\Controllers\BackController;
 use App\Http\Controllers\Controller;
-
+use Image, Carbon, File;
 class ProductController extends BackController
 {
     public function __construct(Product $model)
@@ -18,11 +18,11 @@ class ProductController extends BackController
 
     public function store(Request $request)
     {
-        $fileName = $this->uploadImage(  $request , 530 , 432 );
+        // $fileName = $this->uploadImage(  $request , 530 , 432 );
         
         $product = new Product();
         $product->name = $request->name ; 
-        $product->url = $fileName;
+        $product->url = $request->url;
         $product->description = $request->description ;
         $product->price = $request->price ;
         $product->save();
@@ -58,5 +58,20 @@ class ProductController extends BackController
       
     }
 
+    protected function uploadImage(Request $request , $height = 400 , $width = 400){
+       
+        $photo = $request->file('image');
+        $fileName = time().str_random('10').'.'.$photo->getClientOriginalExtension();
+        $destinationPath = public_path('uploads/');
+        $image = Image::make($photo->getRealPath())->resize($height, $width);
+
+            // return $destinationPath;
+           
+         if(!is_dir($destinationPath) ){
+             mkdir($destinationPath);
+         }
+        $image->save($destinationPath.$fileName,60);
+        return $destinationPath.$fileName;
+    }
     
 }

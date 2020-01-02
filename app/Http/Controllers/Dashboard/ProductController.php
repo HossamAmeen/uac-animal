@@ -71,7 +71,7 @@ class ProductController extends BackController
              mkdir($destinationPath);
          }
         $image->save($destinationPath.$fileName,60);
-        return $destinationPath.$fileName;
+        return 'uploads/'.$fileName;
     }
     
 }

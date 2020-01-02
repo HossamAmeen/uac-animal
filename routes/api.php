@@ -39,7 +39,8 @@ Route::namespace('Dashboard')->group(function () {
     Route::resource('employees', 'EmployeeController');
     Route::post("road/maps", 'RoadMapController@store');
     Route::get("road/maps/{emp_id}", 'RoadMapController@get_companies');
-    Route::get('product/employee/{emp_id}',"ProductController@show_products");   
+    Route::get('product/employee/{emp_id}',"ProductController@show_products");  
+    Route::resource("targets", 'EmployeeTargetController');
 });
 Route::namespace('Mobile')->group(function () {   
     Route::post('add/product', 'ProductController@add_product'); 

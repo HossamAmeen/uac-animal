@@ -70,7 +70,7 @@ class RoadMapController extends Controller
         // return $visits;
         if(isset($request->dateFrom) ){
             
-            $data['not'] = RoadMap::orderBy('id','DESC')
+            $data['notVisited'] = RoadMap::orderBy('id','DESC')
             ->where('employee_id' , $employee_id)
             ->whereNotIn('company_id' , $visits)
             ->whereBetween('date' , [$request->dateFrom, $request->dateTo])
@@ -79,7 +79,7 @@ class RoadMapController extends Controller
             ->get()
             ->groupBy('date');
 
-            $data['in'] = RoadMap::orderBy('id','DESC')
+            $data['visited'] = RoadMap::orderBy('id','DESC')
             ->where('employee_id' , $employee_id)
             ->whereIn('company_id' , $visits)
             ->whereBetween('date' , [$request->dateFrom, $request->dateTo])
@@ -90,7 +90,7 @@ class RoadMapController extends Controller
         }
         else
         {
-            $data['not'] = RoadMap::orderBy('id','DESC')
+            $data['notVisited'] = RoadMap::orderBy('id','DESC')
             ->where('employee_id' , $employee_id)
             ->whereNotIn('company_id' , $visits)
             ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))
@@ -98,7 +98,7 @@ class RoadMapController extends Controller
             ->get()
             ->groupBy('date');
 
-            $data['in'] = RoadMap::orderBy('id','DESC')
+            $data['visited'] = RoadMap::orderBy('id','DESC')
             ->whereIn('company_id' , $visits)
             ->where('employee_id' , $employee_id)
             ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))

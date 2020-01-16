@@ -10,6 +10,7 @@ class EmployeeTargetController extends Controller
     public function index()
     {
         $items = EmployeeTarget::orderBy('id' , 'DESC')->with(['product' , 'empolyee'])->get();
+        
         $array = [
             'data' => $items ,
             'status' =>  "success"  ,

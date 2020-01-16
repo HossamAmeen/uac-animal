@@ -14,9 +14,9 @@ class RoadMapController extends Controller
         /////// from mobile request
     public function store(Request $request)
     {
-       
+
         $item = new RoadMap();
-        $item->date = $request->date ; 
+        $item->date = $request->date ;
         $item->employee_id  = $request->employee_id ;
         $item->company_id = $request->company_id ;
         $item->save();
@@ -31,10 +31,10 @@ class RoadMapController extends Controller
 
     public function get_companies(Request $request , $employee_id)
     {
-        
+
         // $visits = Visit::where()->get();
         if(isset($request->dateFrom) ){
-            
+
             $items = RoadMap::orderBy('id','DESC')
             ->where('employee_id' , $employee_id)
             ->whereBetween('date' , [$request->dateFrom, $request->dateTo])
@@ -51,7 +51,7 @@ class RoadMapController extends Controller
             ->with('companies')
             ->get()
             ->groupBy('date');
-        
+
         }
         $array = [
             'data' => $items ,
@@ -64,20 +64,20 @@ class RoadMapController extends Controller
 
     public function get_companies_test(Request $request , $employee_id)
     {
-        
+
         $visits = Visit::where('employee_id' , $employee_id)->pluck('company_id');
 
         // return $visits;
         if(isset($request->dateFrom) ){
-            
+
             $data['notVisited'] = RoadMap::orderBy('id','DESC')
             ->where('employee_id' , $employee_id)
             ->whereNotIn('company_id' , $visits)
-            ->whereBetween('date' , [$request->dateFrom, $request->dateTo])
             ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))
+            ->whereBetween('date' , [$request->dateFrom, $request->dateTo])
             ->with('companies')
-            ->get()
-            ->groupBy('date');
+            ->get();
+            // ->groupBy('date');
 
             $data['visited'] = RoadMap::orderBy('id','DESC')
             ->where('employee_id' , $employee_id)
@@ -85,8 +85,8 @@ class RoadMapController extends Controller
             ->whereBetween('date' , [$request->dateFrom, $request->dateTo])
             ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))
             ->with('companies')
-            ->get()
-            ->groupBy('date');
+            ->get();
+            // ->groupBy('date');
         }
         else
         {
@@ -105,14 +105,19 @@ class RoadMapController extends Controller
             ->with('companies')
             ->get()
             ->groupBy('date');
-        
+
         }
         $array = [
             'data' => $data ,
             'status' =>  "success"  ,
             'error' => null,
         ];
-
+        // foreach ($data['visited'] as $key => $value) {
+        //   echo $value->companies->name;
+        // }
+        // $text ;
+// return json_encode($array, JSON_UNESCAPED_UNICODE);
+// return response()->json($data, 200, [], JSON_UNESCAPED_UNICODE);
         return response($array , 200);
     }
 }

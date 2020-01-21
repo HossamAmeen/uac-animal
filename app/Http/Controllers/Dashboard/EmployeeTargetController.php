@@ -10,7 +10,7 @@ class EmployeeTargetController extends Controller
     public function index()
     {
         $items = EmployeeTarget::orderBy('id' , 'DESC')->with(['product' , 'empolyee'])->get();
-        
+
         $array = [
             'data' => $items ,
             'status' =>  "success"  ,
@@ -18,6 +18,17 @@ class EmployeeTargetController extends Controller
         ];
 
         return response($array , 200);
+    }
+    public function targetForMandob(Request $request)
+    {
+      $items = EmployeeTarget::orderBy('id' , 'DESC')->where('employee_id',$request->employee_id)->with(['product' , 'empolyee'])->get();
+      $array = [
+          'data' => $items ,
+          'status' =>  "success"  ,
+          'error' => null,
+      ];
+
+      return response($array , 200);
     }
 
     public function store(Request $request)

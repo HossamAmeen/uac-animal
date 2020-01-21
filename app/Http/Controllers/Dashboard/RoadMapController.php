@@ -40,8 +40,8 @@ class RoadMapController extends Controller
             ->whereBetween('date' , [$request->dateFrom, $request->dateTo])
             ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))
             ->with('companies')
-            ->get()
-            ->groupBy('date');
+            ->get();
+            // ->groupBy('date');
         }
         else
         {
@@ -49,8 +49,8 @@ class RoadMapController extends Controller
             ->where('employee_id' , $employee_id)
             ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))
             ->with('companies')
-            ->get()
-            ->groupBy('date');
+            ->get();
+            // ->groupBy('date');
 
         }
         $array = [
@@ -95,16 +95,16 @@ class RoadMapController extends Controller
             ->whereNotIn('company_id' , $visits)
             ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))
             ->with('companies')
-            ->get()
-            ->groupBy('date');
+            ->get();
+            // ->groupBy('date');
 
             $data['visited'] = RoadMap::orderBy('id','DESC')
             ->whereIn('company_id' , $visits)
             ->where('employee_id' , $employee_id)
             ->select('id','employee_id',"company_id", DB::raw('DATE(date) as date'))
             ->with('companies')
-            ->get()
-            ->groupBy('date');
+            ->get();
+            // ->groupBy('date');
 
         }
         $array = [

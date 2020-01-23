@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Mobile;
 
-
+use App\Models\Visit;
+use App\Models\EmployeeProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,9 +29,9 @@ class ClientController extends Controller
         return response($array , 200);
     }
 
-    public function updateVisit(Request $request , $id)
+    public function updateVisit(Request $request , $visit_id)
     {
-        $visit = \App\Models\Visit::find($id);
+        $visit = Visit::find($visit_id);
         
       if(isset($visit->id) )
         {
@@ -38,11 +39,22 @@ class ClientController extends Controller
             $visit->time =$request->time;
             $visit->comment =$request->comment;
             $visit->rate =$request->rate;
-            $visit->product_id =$request->product_id;
-            $visit->amount =$request->amount;
             $visit->is_enable =$request->is_enable;
             $visit->save();
             // return $visit;
+           $products = \App\Models\EmployeeProduct::where('visit_id' , $visit_id);
+           $products->delete();
+        
+           for($i = 0 ; $i < count($request->products);$i++){
+            $newProducts = new EmployeeProduct();
+            $newProducts->count = $request->count[$i];
+            $newProducts->product_id = $request->products[$i];
+            $newProducts->employee_id = $request->employee_id; 
+            $newProducts->date = date("Y/m/d");
+            $newProducts->visit_id = $visit_id;
+            $newProducts->save();
+           }
+           
             return response("update successfully" , 200);
         }
         else

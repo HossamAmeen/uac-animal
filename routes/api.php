@@ -33,19 +33,24 @@ Route::namespace('APIs')->group(function () {
 
 Route::namespace('Dashboard')->group(function () {
     Route::get('moderators',"RepresentativeController@index");
-
+    Route::get('add/representative/moderators',"RepresentativeController@addRepresentForModerators");
+    Route::get('dashboard/representatives/{supervisor_id}',"RepresentativeController@getRepresentativeBySupervisor");
     Route::resource('products', 'ProductController');
     Route::post("upload/image", 'ProductController@uploadImage');
-      Route::post("upload/image2", 'ProductController@uploadImage2');
+    Route::post("upload/image2", 'ProductController@uploadImage2');
     Route::resource('employees', 'EmployeeController');
     Route::post("road/maps", 'RoadMapController@store');
     Route::get("road/maps/{emp_id}", 'RoadMapController@get_companies_test');
     Route::get('product/employee/{emp_id}',"ProductController@show_products");
     Route::resource("targets", 'EmployeeTargetController');
-      Route::get("target/mandob", 'EmployeeTargetController@targetForMandob');
+    Route::get("target/mandob", 'EmployeeTargetController@targetForMandob');
 });
 Route::namespace('Mobile')->group(function () {
     Route::post('add/product', 'ProductController@add_product');
     Route::post('add/rate/employee', 'ProductController@add_rate_employee');
     // Route::get("road-maps/{emp_id}", 'RoadMapController@get_companies');
+    Route::get("client/account", 'ClientController@getAccount');
+    Route::put("visit/update/{id}", 'ClientController@updateVisit');
+    Route::get('representatives/{supervisor_id}',"RepresentativeController@getRepresentativeBySupervisor");
+    Route::get("target", 'RepresentativeController@targetForMandob');
      });

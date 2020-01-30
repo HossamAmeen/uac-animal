@@ -18,6 +18,7 @@ class ProductController extends Controller
         $producd->date = $request->date;
         $producd->count = $request->count;
         $producd->product_id = $request->product_id;
+        $producd->visit_id = $request->visit_id;
         $producd->employee_id  = $request->employee_id ;
         $producd->save();
         $array = [

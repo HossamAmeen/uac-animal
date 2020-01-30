@@ -46,7 +46,10 @@ Route::namespace('Dashboard')->group(function () {
     Route::get("target/mandob", 'EmployeeTargetController@targetForMandob');
 });
 
-Route::namespace('Mobile')->group(function () {
+Route::namespace('Mobile')->group(function () { 
+
+    Route::post('login-moderator', 'ModeratorController@login');
+
     Route::post('add/product', 'ProductController@add_product');
     Route::post('add/rate/employee', 'ProductController@add_rate_employee');
     // Route::get("road-maps/{emp_id}", 'RoadMapController@get_companies');

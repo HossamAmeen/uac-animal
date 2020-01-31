@@ -9,8 +9,12 @@ class RoadMap extends Model
     protected $table = "road_map";
     public $timestamps = false;
 
-    function companies()
+    function company()
     {
         return $this->belongsTo(Company::class , 'company_id');
+    }
+    public function product()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id');
     }
 }

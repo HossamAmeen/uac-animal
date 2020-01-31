@@ -26,7 +26,7 @@ class ProductController extends Controller
             'status' =>  "success"  ,
             'error' => null,
         ];
-
+        $array = json_encode($array);
         return response($array , 200);
     }
 

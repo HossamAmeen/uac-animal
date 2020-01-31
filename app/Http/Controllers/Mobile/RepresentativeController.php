@@ -18,7 +18,7 @@ class RepresentativeController extends Controller
         'data' => $representatives ,
       
     ];
-
+    $array = json_encode($array);
     return response($array , 200);
    } 
    
@@ -60,7 +60,7 @@ class RepresentativeController extends Controller
            'status' =>  "success"  ,
            'error' => null,
        ];
-
+       $array = json_encode($array);
        return response($array , 200);
    }
 

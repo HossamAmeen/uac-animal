@@ -19,7 +19,7 @@ class ModeratorController extends Controller
                 'status' =>  "success"  ,
                 'error' => null,
             ];
-    
+            $array = json_encode($array);
             return response($array , 200);
         }
         else
@@ -29,7 +29,7 @@ class ModeratorController extends Controller
                 'status' =>  "failed"  ,
                 'error' => "username or password not coorect",
             ];
-    
+            $array = json_encode($array);
             return response($array , 400);
         }
     }

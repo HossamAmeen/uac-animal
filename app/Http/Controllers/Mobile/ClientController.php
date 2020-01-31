@@ -13,7 +13,8 @@ class ClientController extends Controller
     {
         $company = \App\Models\Company::find($request->id);
 
-       
+        // $myJSON = json_encode($company);
+        
         if(isset($company)){
             $array = [
                 'data' => $company,
@@ -25,7 +26,7 @@ class ClientController extends Controller
             'data' => "not found" ,
           
         ];
-
+        $array = json_encode($array);
         return response($array , 200);
     }
 

@@ -65,7 +65,7 @@ class RoadMapController extends Controller
         // $visits = Visit::where('employee_id' , $employee_id)->pluck('company_id');
 
         // return $visits;
-        $roadMaps = RoadMap::with(['product','company'])->orderBy('id', 'DESC')->where('employee_id', $employee_id)->get();
+        $roadMaps = RoadMap::with(['employee','company'])->orderBy('id', 'DESC')->where('employee_id', $employee_id)->get();
         $data = array();
         if (isset($request->dateFrom)) {
 

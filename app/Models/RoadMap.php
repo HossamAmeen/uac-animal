@@ -13,7 +13,7 @@ class RoadMap extends Model
     {
         return $this->belongsTo(Company::class , 'company_id');
     }
-    public function product()
+    public function employee()
     {
         return $this->belongsTo(Employee::class, 'employee_id');
     }

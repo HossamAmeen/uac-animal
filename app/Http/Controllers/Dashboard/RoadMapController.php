@@ -66,7 +66,7 @@ class RoadMapController extends Controller
 
         // return $visits;
         $roadMaps = RoadMap::with(['product','company'])->orderBy('id', 'DESC')->where('employee_id', $employee_id)->get();
-
+        $data = array();
         if (isset($request->dateFrom)) {
 
             // $data['notVisited'] = RoadMap::orderBy('id','DESC')
@@ -97,11 +97,11 @@ class RoadMapController extends Controller
         foreach($roadMaps as $roadMap){
             if($roadMap->visit_id == null)
             {
-                $data['not-visit'][] = $roadMap ;
+                $data['notVisited'][] = $roadMap ;
             }
             else
             {
-                $data['visit'][] = $roadMap ;
+                $data['visited'][] = $roadMap ;
             }
            
         }

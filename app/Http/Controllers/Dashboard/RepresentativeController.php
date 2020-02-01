@@ -28,7 +28,7 @@ class RepresentativeController extends BackController
          'data' => $representatives ,
        
      ];
-     $array = json_encode($array);
+  
      return response($array , 200);
     } 
 

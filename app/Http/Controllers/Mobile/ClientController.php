@@ -26,7 +26,7 @@ class ClientController extends Controller
             'data' => "not found" ,
           
         ];
-        $array = json_encode($array);
+    
         return response($array , 200);
     }
 

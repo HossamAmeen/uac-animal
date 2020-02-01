@@ -28,43 +28,12 @@ class RoadMapController extends Controller
         return response($array, 200);
     }
 
-    public function get_companies(Request $request, $employee_id)
-    {
-
-        // $visits = Visit::where()->get();
-        if (isset($request->dateFrom)) {
-
-            $items = RoadMap::orderBy('id', 'DESC')
-                ->where('employee_id', $employee_id)
-                ->whereBetween('date', [$request->dateFrom, $request->dateTo])
-                ->select('id', 'employee_id', "company_id", DB::raw('DATE(date) as date'))
-                ->with('companies')
-                ->get();
-            // ->groupBy('date');
-        } else {
-            $items = RoadMap::orderBy('id', 'DESC')
-                ->where('employee_id', $employee_id)
-                ->select('id', 'employee_id', "company_id", DB::raw('DATE(date) as date'))
-                ->with('companies')
-                ->get();
-            // ->groupBy('date');
-
-        }
-        $array = [
-            'data' => $items,
-            'status' => "success",
-            'error' => null,
-        ];
-
-        return response($array, 200);
-    }
+  
 
     public function get_companies_test(Request $request, $employee_id)
     {
 
-        // $visits = Visit::where('employee_id' , $employee_id)->pluck('company_id');
-
-        // return $visits;
+       
         $roadMaps = RoadMap::with(['company'])->orderBy('id', 'DESC')->where('employee_id', $employee_id)->get();
         $data = array();
         if (isset($request->dateFrom)) {
@@ -116,7 +85,7 @@ class RoadMapController extends Controller
         // $text ;
         // return json_encode($array, JSON_UNESCAPED_UNICODE);
         // return response()->json($data, 200, [], JSON_UNESCAPED_UNICODE);
-        $array = json_encode($array);
+        // $array = json_encode($array);
         return response($array, 200);
     }
 }

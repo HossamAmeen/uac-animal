@@ -12,8 +12,10 @@ trait APIResponseTrait
             'status' => in_array($code , [200 , 201 , 202]) ? "success" : "falied" ,
             'error' => $error,
         ];
-        // return json_encode($array , JSON_UNESCAPED_UNICODE) ;
-        $array = json_encode($array);
+        
+        // $array = json_encode($array , JSON_UNESCAPED_UNICODE) ;
+        // $array = json_encode($array);
+        // echo json_encode($array);
         return response($array , $code);
     }
 }

@@ -94,7 +94,7 @@ class ProductController extends BackController
             'error' => null,
         ];
           return response($array , 200);
-        return ;
+  
     }
 
 }

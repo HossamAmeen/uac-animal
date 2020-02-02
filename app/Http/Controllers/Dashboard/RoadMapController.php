@@ -62,7 +62,8 @@ class RoadMapController extends Controller
             $roadMaps = $roadMaps->whereBetween('date' , [$request->dateFrom, $request->dateTo]);
 
         } 
-
+        $data['notVisited'] =array();
+        $data['visited'] = array();
         foreach($roadMaps as $roadMap){
             if($roadMap->visit_id == null)
             {
@@ -85,7 +86,7 @@ class RoadMapController extends Controller
         // $text ;
         // return json_encode($array, JSON_UNESCAPED_UNICODE);
         // return response()->json($data, 200, [], JSON_UNESCAPED_UNICODE);
-        // $array = json_encode($array);
+        // return json_encode($array);
         return response($array, 200);
     }
 }

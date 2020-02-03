@@ -40,8 +40,8 @@ class ProductController extends BackController
 
             ->select('id','employee_id',"product_id", DB::raw('DATE(date) as date'))
             ->with('products')
-            ->get()
-            ->groupBy('date');
+            ->get();
+            // ->groupBy('date');
         }
         else
         {
@@ -49,8 +49,8 @@ class ProductController extends BackController
             ->where('employee_id' , $employee_id)
             ->select('id','employee_id',"product_id", DB::raw('DATE(date) as date'))
             ->with('products')
-            ->get()
-            ->groupBy('date');
+            ->get();
+            // ->groupBy('date');
 
         }
         return $this->APIResponse($items, null, 200);

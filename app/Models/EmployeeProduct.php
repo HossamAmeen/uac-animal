@@ -9,7 +9,7 @@ class EmployeeProduct extends Model
     public $timestamps = false;
     protected $table = "employee_product";
 
-    function products()
+    function product()
     {
         return $this->belongsTo(Product::class , 'product_id');
     }

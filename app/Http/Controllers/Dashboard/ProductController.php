@@ -48,7 +48,7 @@ class ProductController extends BackController
             $items = EmployeeProduct::orderBy('id','DESC')
             ->where('employee_id' , $employee_id)
             ->select('id','employee_id',"product_id", DB::raw('DATE(date) as date'))
-            ->with('products')
+            ->with('product')
             ->get();
             // ->groupBy('date');
 

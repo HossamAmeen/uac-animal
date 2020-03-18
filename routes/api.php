@@ -54,6 +54,7 @@ Route::namespace('Mobile')->group(function () {
     Route::post('add/rate/employee', 'ProductController@add_rate_employee');
     // Route::get("road-maps/{emp_id}", 'RoadMapController@get_companies');
     Route::get("client/account", 'ClientController@getAccount');
+    Route::get("company/account", 'ClientController@getAccount');
     Route::put("visit/update/{id}", 'ClientController@updateVisit');
     Route::get('representatives/{supervisor_id}',"RepresentativeController@getRepresentativeBySupervisor");
     Route::get("target", 'RepresentativeController@targetForMandob');

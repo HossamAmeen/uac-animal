@@ -20,12 +20,12 @@ class EmployeeController extends BackController
         $employee->name = $request->name ; 
         $employee->username =  $request->username;
         $employee->password = $request->password ;
-        $employee->area_id = $request->area ;
+        $employee->area_id = implode("|",$request->area);
         $employee->phoneNum = $request->phone ;
         $employee->mod_id = $request->moderator ;
         $employee->image = " ";
         $employee->save();
-
+        // return implode("|",$request->area);
         return $this->APIResponse(null, null, 200);
     }
 

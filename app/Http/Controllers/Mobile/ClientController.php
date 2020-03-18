@@ -14,7 +14,7 @@ class ClientController extends Controller
         $company = \App\Models\Company::find($request->id);
 
         // $myJSON = json_encode($company);
-        
+        $company['manager'] = \App\Models\Manager::where('company_id' , $company->id)->first();
         if(isset($company)){
             $array = [
                 'data' => $company,
@@ -29,6 +29,8 @@ class ClientController extends Controller
     
         return response($array , 200);
     }
+
+   
 
     public function updateVisit(Request $request , $visit_id)
     {

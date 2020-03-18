@@ -24,6 +24,7 @@ class RepresentativeController extends Controller
    
    public function targetForMandob(Request $request)
    {
+    //    return "Test";
    
        $data = array();
      $items = EmployeeTarget::orderBy('id' , 'DESC')->where('employee_id',$request->employee_id)->with(['product' , 'empolyee'])->get();
@@ -34,7 +35,7 @@ class RepresentativeController extends Controller
                                ->where('date_to','<=', $request->dateTo)
                                ->get();
         }
-       // return $items;
+       return $items;
        foreach($items as $item ){
            $datas['id']=$item->id;
            $datas['target']=$item->target;

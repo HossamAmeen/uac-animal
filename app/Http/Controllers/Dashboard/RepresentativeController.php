@@ -21,7 +21,7 @@ class RepresentativeController extends BackController
     
     public function getRepresentativeBySupervisor($supervisorId)
     {
-    $area_number = Moderator::find($supervisorId);
+     $area_number = Moderator::find($supervisorId);
      $representatives =  \App\Models\Employee::where('mod_id' , $supervisorId)->get();
     //  $data['NewRepresentatives'] =  \App\Models\Employee::where('mod_id' ,'!=', $supervisorId)->get();
      $array = [

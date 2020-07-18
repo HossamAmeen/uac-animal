@@ -20,7 +20,10 @@ class EmployeeController extends BackController
         $employee->name = $request->name ; 
         $employee->username =  $request->username;
         $employee->password = $request->password ;
+        if(is_array($request->area))
         $employee->area_id = implode("|",$request->area);
+        else
+        $employee->area_id = $request->area ;
         $employee->phoneNum = $request->phone ;
         $employee->mod_id = $request->moderator ;
         $employee->image = " ";
